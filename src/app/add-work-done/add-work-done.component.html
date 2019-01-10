@@ -1,0 +1,88 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <div class="formWrapper">
+    <mat-form-field>
+      <div *ngIf="!data.edit">
+        <input matInput type="text" id="workName" formControlName="workName" placeholder="Nazwa">
+      </div>
+      <div *ngIf="data.edit">
+        <input matInput type="text" id="workName" formControlName="workName" placeholder="Nazwa" value={{data.data.workName}}>
+      </div>
+      <mat-error *ngIf="contactForm.get('workName').invalid && contactForm.get('workName').dirty">Pole wymagane!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <div *ngIf="!data.edit">
+        <input matInput type="text" id="workAddress" formControlName="workAddress" placeholder="Miejsce/adres gdzie została wykonana instalacja">
+        <mat-error *ngIf="contactForm.get('workAddress').invalid && contactForm.get('workAddress').dirty">Pole wymagane!</mat-error>
+      </div>
+      <div *ngIf="data.edit">
+        <input matInput value={{data.data.workAddress}} type="text" id="workAddress" formControlName="workAddress" placeholder="Miejsce/adres gdzie została wykonana instalacja">
+        <mat-error *ngIf="contactForm.get('workAddress').invalid && contactForm.get('workAddress').dirty">Pole wymagane!</mat-error>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <div *ngIf="!data.edit">
+        <input matInput type="text" id="clientData" formControlName="clientData" placeholder="Dane klienta">
+        <mat-error *ngIf="contactForm.get('clientData').invalid && contactForm.get('clientData').dirty">Pole wymagane!</mat-error>
+      </div>
+      <div *ngIf="data.edit">
+        <input matInput value={{data.data.clientData}} type="text" id="clientData" formControlName="clientData" placeholder="Dane klienta">
+        <mat-error *ngIf="contactForm.get('clientData').invalid && contactForm.get('clientData').dirty">Pole wymagane!</mat-error>
+      </div>
+    </mat-form-field>
+    <div class="datePickers" *ngIf="!data.edit">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" id="startDate" formControlName="startDate" placeholder="data rozpoczęcia">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="contactForm.get('startDate').invalid && contactForm.get('startDate').dirty">Pole nie wypełnione poprawnie !</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" id="endDate" formControlName="endDate" placeholder="data zakończenia">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="contactForm.get('endDate').invalid && contactForm.get('endDate').dirty">Pole nie wypełnione poprawnie !</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-select id="typeOfWork" formControlName="typeOfWork" placeholder="Rodzaj usługi" [(ngModel)]='selectedValue'>
+        <mat-option value="Nowa instalacja">Nowa instalacja</mat-option>
+        <mat-option value="Naprawa">Naprawa</mat-option>
+        <mat-option value="Konserwacja">konserwacja</mat-option>
+        <mat-option value="Inne">Różne usługi</mat-option>
+      </mat-select>
+      <mat-error *ngIf="contactForm.get('typeOfWork')">Pole nie wypełnione poprawnie !</mat-error>
+    </mat-form-field>
+    <div formArrayName="devices">
+      <div *ngIf="!data.edit">
+        <div *ngFor="let device of contactForm.get('devices')['controls']; let i = index">
+          <mat-form-field class="devicesField" disabled="true">
+            <input matInput type="text" [formControlName]="i" placeholder="Urządzenie {{i + 1}}">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="accent" type="button" (click)="addDevice()">Dodaj urządzenie</button>
+      </div>
+    </div>
+    <mat-form-field class="comments">
+      <div *ngIf="!data.edit">
+        <textarea matInput rows="2" cols="50" id="message" formControlName="message" placeholder="Uwagi"></textarea>
+      </div>
+      <div *ngIf="data.edit">
+        <textarea value={{data.data.message}} matInput rows="2" cols="50" id="message" formControlName="message" placeholder="Uwagi"></textarea>
+      </div>
+      <div *ngIf="contactForm.get('message').invalid && contactForm.get('message').dirty">Pole wymagane!</div>
+    </mat-form-field>
+    <div class="buttonWrapper" *ngIf="!loading">
+      <div *ngIf="data.edit">
+        <button mat-raised-button color="primary" type="submit">Edytuj</button>
+      </div>
+      <div *ngIf="!data.edit">
+        <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">Wyslij</button>
+      </div>
+      <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
+    </div>
+  </div>
+  <div *ngIf="loading" class="spinnerWrapper">
+    <mat-spinner></mat-spinner>
+  </div>
+</form>
+

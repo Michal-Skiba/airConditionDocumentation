@@ -1,0 +1,18 @@
+.cardList {
+  padding-top: 20px;
+  .card {
+    margin: 20px 10%;
+  }
+  .buttonsWrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  @media only screen and (min-width: 1200px) {
+    display: flex;
+    flex-wrap: wrap;
+    .card {
+      width: 40%;
+      margin: 20px 5%;
+    }
+  }
+}

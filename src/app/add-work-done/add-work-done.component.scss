@@ -1,0 +1,35 @@
+.formWrapper {
+  display: inline-grid;
+  width: 100%;
+}
+
+.datePickers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  @media only screen and (min-width: 450px) {
+    flex-direction: row;
+  }
+}
+
+.devicesField {
+  width: 100%;
+}
+
+.buttonWrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin: 0 10px;
+  }
+}
+
+.comments {
+  margin-top: 10px;
+}
+
+.spinnerWrapper {
+  width: fit-content;
+  margin: 0 auto;
+}

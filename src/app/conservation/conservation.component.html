@@ -1,0 +1,31 @@
+<div class="cardList">
+  <div *ngFor="let data of formatedDataArr" class="card">
+    <mat-card>
+      <mat-card-title>{{data.workName}}</mat-card-title>
+      <mat-card-content>
+        <b>Termin konserwacji:</b> {{data.nextConservationDate}}<br>
+        <b>Dane klienta: </b> {{data.clientData}}<br>
+        <b>Adres: </b> {{data.workAddress}}<br>
+        <b>Liczba urządzeń: </b> {{data.devices.length}}
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="buttonsWrapper">
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="conservationDone(data, data.id)"
+          >
+            Konserwacja zrobiona
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteFromConservation(data, data.id)"
+          >
+            Usuń
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

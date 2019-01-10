@@ -1,0 +1,42 @@
+<div class="cardList" *ngIf="worksData">
+  <div *ngFor="let data of worksData | async; let i = index" class="card">
+    <mat-card>
+      <mat-card-title>{{data.workName}}</mat-card-title>
+      <mat-card-subtitle>{{data.typeOfWork}}</mat-card-subtitle>
+      <mat-card-content>
+        <b>Dane klienta: </b> {{data.clientData}}<br>
+        <b>Adres: </b> {{data.workAddress}}<br>
+        <b>Czas wykonania od: </b> {{data.startDate.seconds * 1000  | date:"dd/MM/yyyy"}} <b>do</b> {{data.endDate.seconds * 1000  | date:"dd/MM/yyyy"}}<br>
+        <b>Uwagi: </b> {{data.message}}<br>
+        <b>Urządzenia: </b>
+        <div *ngFor="let x of data.devices; let i = index">
+          <div *ngIf="x !== null">
+            <b>{{i + 1}}:</b> {{x}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="buttonsWrapper">
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="editModalOpen(formatedDataArr[i])"
+          >
+            Edytuj
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="openDialog(formatedDataArr[i].id)"
+          >
+            Usuń
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div *ngIf="!worksData" class="noWorksMessage">
+  <b>Brak wykonanych prac !</b>
+</div>
+

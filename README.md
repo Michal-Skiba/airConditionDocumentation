@@ -1,4 +1,4 @@
-Start learning Angular.
+Start learning Angular with this project.
 
 used technology: Angular, firebase
 
